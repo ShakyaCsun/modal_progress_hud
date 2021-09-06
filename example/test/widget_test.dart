@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final Finder login = find.byType(RaisedButton);
+  final Finder login = find.byType(ElevatedButton);
 
   group('Login Page', () {
-    final Finder userName = find.byKey(Key('username'));
-    final Finder password = find.byKey(Key('password'));
+    final Finder userName = find.byKey(const Key('username'));
+    final Finder password = find.byKey(const Key('password'));
 
-    final userSyncErrorMsg = 'Username must be at least 8 characters';
-    final userASyncErrorMsg = 'Incorrect user name';
-    final passSyncErrorMsg = 'Password must be at least 8 characters';
-    final passASyncErrorMsg = 'Incorrect password';
+    const userSyncErrorMsg = 'Username must be at least 8 characters';
+    const userASyncErrorMsg = 'Incorrect user name';
+    const passSyncErrorMsg = 'Password must be at least 8 characters';
+    const passASyncErrorMsg = 'Incorrect password';
 
-    final secretUsername = 'username1';
-    final secretPassword = 'password1';
+    const secretUsername = 'username1';
+    const secretPassword = 'password1';
 
     bool? isLoggedIn;
     final sut = MaterialApp(
@@ -78,7 +78,7 @@ void main() {
       await tester.enterText(password, 'boguspassword');
       await tester.tap(login);
       // wait for same time as demo async call
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
       // verify async username validator only ran
       expect(find.text(userSyncErrorMsg), findsNothing);
@@ -101,7 +101,7 @@ void main() {
       await tester.enterText(password, 'boguspassword');
       await tester.tap(login);
       // wait for same time as demo async call
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
       // verify async password validator only ran
       expect(find.text(userSyncErrorMsg), findsNothing);
@@ -125,7 +125,7 @@ void main() {
 
       await tester.tap(login);
       // wait for same time as demo async call
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
       // verify no validators ran
       expect(find.text(userSyncErrorMsg), findsNothing);
@@ -141,7 +141,7 @@ void main() {
   group('App', () {
     testWidgets('App smoke test', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(new MyApp());
+      await tester.pumpWidget(const MyApp());
 
       expect(find.byType(LoginPage), findsOneWidget);
 

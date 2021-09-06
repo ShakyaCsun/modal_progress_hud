@@ -3,10 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('app test: ', () {
-    final userSync = 'Username must be at least 8 characters';
-    final userASync = 'Incorrect user name';
-    final passSync = 'Password must be at least 8 characters';
-    final passASync = 'Incorrect password';
+    const userSync = 'Username must be at least 8 characters';
+    const userASync = 'Incorrect user name';
+    const passSync = 'Password must be at least 8 characters';
+    const passASync = 'Incorrect password';
 
     FlutterDriver? driver;
     final userName = find.byValueKey('username');

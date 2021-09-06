@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginPage(
-        onSignIn: () => print('login successful!'),
+        onSignIn: () => log('login successful!'),
       ),
     );
   }
@@ -22,9 +26,11 @@ class MyApp extends StatelessWidget {
 class LoginPage extends StatefulWidget {
   final VoidCallback _onSignIn;
 
-  LoginPage({required onSignIn})
-      : assert(onSignIn != null),
-        _onSignIn = onSignIn;
+  const LoginPage({
+    Key? key,
+    required VoidCallback onSignIn,
+  })  : _onSignIn = onSignIn,
+        super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -79,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
       _loginFormKey.currentState!.save();
 
       // dismiss keyboard during async call
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       // start the modal progress HUD
       setState(() {
@@ -87,9 +93,9 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       // Simulate a service call
-      Future.delayed(Duration(seconds: 1), () {
-        final _accountUsername = 'username1';
-        final _accountPassword = 'password1';
+      Future.delayed(const Duration(seconds: 1), () {
+        const _accountUsername = 'username1';
+        const _accountPassword = 'password1';
         setState(() {
           if (_username == _accountUsername) {
             _isInvalidAsyncUser = false;
@@ -97,9 +103,9 @@ class _LoginPageState extends State<LoginPage> {
               // username and password are correct
               _isInvalidAsyncPass = false;
               _isLoggedIn = true;
-            } else
-              // username is correct, but password is incorrect
+            } else {
               _isInvalidAsyncPass = true;
+            }
           } else {
             // incorrect username and have not checked password result
             _isInvalidAsyncUser = true;
@@ -109,9 +115,9 @@ class _LoginPageState extends State<LoginPage> {
           // stop the modal progress HUD
           _isInAsyncCall = false;
         });
-        if (_isLoggedIn)
-          // do something
+        if (_isLoggedIn) {
           widget._onSignIn();
+        }
       });
     }
   }
@@ -120,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Modal Progress HUD Demo'),
+        title: const Text('Modal Progress HUD Demo'),
         backgroundColor: Colors.blue,
       ),
       // display modal progress HUD (heads-up display, or indicator)
@@ -135,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
         inAsyncCall: _isInAsyncCall,
         // demo of some additional parameters
         opacity: 0.5,
-        progressIndicator: CircularProgressIndicator(),
+        progressIndicator: const CircularProgressIndicator(),
       ),
     );
   }
@@ -145,14 +151,14 @@ class _LoginPageState extends State<LoginPage> {
     // run the validators on reload to process async results
     _loginFormKey.currentState?.validate();
     return Form(
-      key: this._loginFormKey,
+      key: _loginFormKey,
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
-              key: Key('username'),
-              decoration: InputDecoration(
+              key: const Key('username'),
+              decoration: const InputDecoration(
                   hintText: 'enter username', labelText: 'User Name'),
               style: TextStyle(fontSize: 20.0, color: textTheme.button!.color),
               validator: _validateUserName,
@@ -162,9 +168,9 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
-              key: Key('password'),
+              key: const Key('password'),
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: 'enter password', labelText: 'Password'),
               style: TextStyle(fontSize: 20.0, color: textTheme.button!.color),
               validator: _validatePassword,
@@ -173,20 +179,20 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Padding(
             padding: const EdgeInsets.all(32.0),
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: _submit,
-              child: Text('Login'),
+              child: const Text('Login'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: _isLoggedIn
-                ? Text(
+                ? const Text(
                     'Login successful!',
                     key: Key('loggedIn'),
                     style: TextStyle(fontSize: 20.0),
                   )
-                : Text(
+                : const Text(
                     'Not logged in',
                     key: Key('notLoggedIn'),
                     style: TextStyle(fontSize: 20.0),
