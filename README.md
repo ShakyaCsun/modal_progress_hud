@@ -8,13 +8,11 @@ A simple widget wrapper to enable modal progress HUD (a modal progress indicator
 
 Inspired by [this](https://codingwithjoe.com/flutter-how-to-build-a-modal-progress-indicator/) article.
 
-
 ## Demo
 
 ![Demo](https://raw.githubusercontent.com/mmcc007/modal_progress_hud/master/modal_progress_hud.gif)
 
 *See example for details*
-
 
 ## Usage
 
@@ -48,10 +46,10 @@ Widget build(BuildContext context) {
 }
 ```
 
-
 ## Options
 
 The current parameters are customizable in the constructor
+
 ```dart
 ModalProgressHUD(
   @required inAsyncCall: bool,
@@ -64,15 +62,13 @@ ModalProgressHUD(
 );
 ```
 
-
 ## Example
 
-Here is an example app that demonstrates the usage. 
+Here is an example app that demonstrates the usage.
 
 1. On initial load, `_saving` is false which causes your child widget to display
 2. When the form is submitted, `_saving` is set to true, which will display the modal
 3. Once the async call is complete, `_saving` is set back to false, hiding the modal
-
 
 ```dart
 class SettingsPage extends StatefulWidget {
@@ -142,9 +138,7 @@ for a complete sample app using the modal progress HUD. Included in the
 example is a method for using a form's validators while making async
 calls (see [flutter/issues/9688](https://github.com/flutter/flutter/issues/9688) for details).
 
-
 ### Issues and feedback
 
 Please file [issues](https://github.com/mmcc007/modal_progress_hud/issues/new)
 to send feedback or report a bug. Thank you!
-

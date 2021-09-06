@@ -7,7 +7,7 @@ void main() {
   group('Modal Progress HUD', () {
     Widget sut(bool inAsyncCall, Offset? offset) {
       return MaterialApp(
-        home: ModalProgressHUD(
+        home: ModalProgressHud(
           inAsyncCall: inAsyncCall,
           offset: offset,
           child: const Text(''),

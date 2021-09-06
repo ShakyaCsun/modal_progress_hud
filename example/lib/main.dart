@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       // display modal progress HUD (heads-up display, or indicator)
       // when in async call
-      body: ModalProgressHUD(
+      body: ModalProgressHud(
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16.0),
