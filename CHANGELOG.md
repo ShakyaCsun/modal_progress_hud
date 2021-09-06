@@ -1,3 +1,9 @@
+# CHANGELOG for modal_progress_hud
+
+## [1.0.0]
+* Migrated to null safety
+* Breaking!: Rename ModalProgressHUD to ModalProgressHud
+
 ## [0.1.3]
 * Performance optimization
 * Improved docs
