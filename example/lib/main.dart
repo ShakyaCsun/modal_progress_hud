@@ -24,13 +24,13 @@ class MyApp extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
-  final VoidCallback _onSignIn;
-
   const LoginPage({
     Key? key,
     required VoidCallback onSignIn,
   })  : _onSignIn = onSignIn,
         super(key: key);
+
+  final VoidCallback _onSignIn;
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -132,22 +132,21 @@ class _LoginPageState extends State<LoginPage> {
       // display modal progress HUD (heads-up display, or indicator)
       // when in async call
       body: ModalProgressHud(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: buildLoginForm(context),
-          ),
-        ),
         inAsyncCall: _isInAsyncCall,
         // demo of some additional parameters
         opacity: 0.5,
-        progressIndicator: const CircularProgressIndicator(),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: buildLoginForm(context),
+          ),
+        ),
       ),
     );
   }
 
   Widget buildLoginForm(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
     // run the validators on reload to process async results
     _loginFormKey.currentState?.validate();
     return Form(
@@ -155,47 +154,47 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: TextFormField(
               key: const Key('username'),
               decoration: const InputDecoration(
                   hintText: 'enter username', labelText: 'User Name'),
-              style: TextStyle(fontSize: 20.0, color: textTheme.button!.color),
+              style: TextStyle(fontSize: 20, color: textTheme.button!.color),
               validator: _validateUserName,
               onSaved: (value) => _username = value,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: TextFormField(
               key: const Key('password'),
               obscureText: true,
               decoration: const InputDecoration(
                   hintText: 'enter password', labelText: 'Password'),
-              style: TextStyle(fontSize: 20.0, color: textTheme.button!.color),
+              style: TextStyle(fontSize: 20, color: textTheme.button!.color),
               validator: _validatePassword,
               onSaved: (value) => _password = value,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(32.0),
+            padding: const EdgeInsets.all(32),
             child: ElevatedButton(
               onPressed: _submit,
               child: const Text('Login'),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: _isLoggedIn
                 ? const Text(
                     'Login successful!',
                     key: Key('loggedIn'),
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(fontSize: 20),
                   )
                 : const Text(
                     'Not logged in',
                     key: Key('notLoggedIn'),
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(fontSize: 20),
                   ),
           ),
         ],
