@@ -43,5 +43,58 @@ void main() {
       expect(find.byType(Text), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
+
+    testWidgets(
+      'TextField state is preserved when Progress Hud appears',
+      (tester) async {
+        await tester.pumpWidget(const TestWidget());
+
+        await tester.enterText(find.byType(TextField), 'inputText');
+
+        await tester.tap(find.byType(TextButton));
+
+        await tester.pump();
+
+        expect(find.text('inputText'), findsOneWidget);
+      },
+    );
   });
+}
+
+class TestWidget extends StatefulWidget {
+  const TestWidget({super.key});
+
+  @override
+  State<TestWidget> createState() => _TestWidgetState();
+}
+
+class _TestWidgetState extends State<TestWidget> {
+  bool inAsyncCall = false;
+
+  void fakeSubmit() {
+    setState(() {
+      inAsyncCall = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: ModalProgressHud(
+          inAsyncCall: inAsyncCall,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const TextField(),
+              TextButton(
+                onPressed: fakeSubmit,
+                child: const Text('Submit'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -2,13 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +24,14 @@ class MyApp extends StatelessWidget {
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
-    Key? key,
+    super.key,
     required VoidCallback onSignIn,
-  })  : _onSignIn = onSignIn,
-        super(key: key);
+  }) : _onSignIn = onSignIn;
 
   final VoidCallback _onSignIn;
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -158,7 +156,9 @@ class _LoginPageState extends State<LoginPage> {
             child: TextFormField(
               key: const Key('username'),
               decoration: const InputDecoration(
-                  hintText: 'enter username', labelText: 'User Name'),
+                hintText: 'enter username',
+                labelText: 'User Name',
+              ),
               style: TextStyle(fontSize: 20, color: textTheme.button!.color),
               validator: _validateUserName,
               onSaved: (value) => _username = value,
@@ -170,7 +170,9 @@ class _LoginPageState extends State<LoginPage> {
               key: const Key('password'),
               obscureText: true,
               decoration: const InputDecoration(
-                  hintText: 'enter password', labelText: 'Password'),
+                hintText: 'enter password',
+                labelText: 'Password',
+              ),
               style: TextStyle(fontSize: 20, color: textTheme.button!.color),
               validator: _validatePassword,
               onSaved: (value) => _password = value,

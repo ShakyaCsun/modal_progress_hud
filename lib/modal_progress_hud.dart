@@ -27,7 +27,7 @@ import 'package:flutter/material.dart';
 class ModalProgressHud extends StatelessWidget {
   /// {@macro modal_progress_hud}
   const ModalProgressHud({
-    Key? key,
+    super.key,
     required this.inAsyncCall,
     this.opacity = 0.3,
     this.color = Colors.grey,
@@ -35,7 +35,7 @@ class ModalProgressHud extends StatelessWidget {
     this.offset,
     this.dismissible = false,
     required this.child,
-  }) : super(key: key);
+  });
 
   /// Represents if the widget is in async call.
   /// If `true` shows the ModalProgressHud, else show the [child]
@@ -70,8 +70,6 @@ class ModalProgressHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!inAsyncCall) return child;
-
     Widget layOutProgressIndicator;
     final offsetOrNull = offset;
     if (offsetOrNull == null) {
@@ -87,11 +85,13 @@ class ModalProgressHud extends StatelessWidget {
     return Stack(
       children: [
         child,
-        Opacity(
-          opacity: opacity,
-          child: ModalBarrier(dismissible: dismissible, color: color),
-        ),
-        layOutProgressIndicator,
+        if (inAsyncCall) ...[
+          Opacity(
+            opacity: opacity,
+            child: ModalBarrier(dismissible: dismissible, color: color),
+          ),
+          layOutProgressIndicator,
+        ],
       ],
     );
   }
