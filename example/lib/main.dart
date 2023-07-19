@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
       home: LoginPage(
         onSignIn: () => log('login successful!'),
@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
-    super.key,
     required VoidCallback onSignIn,
+    super.key,
   }) : _onSignIn = onSignIn;
 
   final VoidCallback _onSignIn;
@@ -92,12 +92,12 @@ class _LoginPageState extends State<LoginPage> {
 
       // Simulate a service call
       Future.delayed(const Duration(seconds: 1), () {
-        const _accountUsername = 'username1';
-        const _accountPassword = 'password1';
+        const accountUsername = 'username1';
+        const accountPassword = 'password1';
         setState(() {
-          if (_username == _accountUsername) {
+          if (_username == accountUsername) {
             _isInvalidAsyncUser = false;
-            if (_password == _accountPassword) {
+            if (_password == accountPassword) {
               // username and password are correct
               _isInvalidAsyncPass = false;
               _isLoggedIn = true;
@@ -125,7 +125,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Modal Progress HUD Demo'),
-        backgroundColor: Colors.blue,
       ),
       // display modal progress HUD (heads-up display, or indicator)
       // when in async call
@@ -144,7 +143,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildLoginForm(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     // run the validators on reload to process async results
     _loginFormKey.currentState?.validate();
     return Form(
@@ -159,7 +157,6 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: 'enter username',
                 labelText: 'User Name',
               ),
-              style: TextStyle(fontSize: 20, color: textTheme.button!.color),
               validator: _validateUserName,
               onSaved: (value) => _username = value,
             ),
@@ -173,14 +170,13 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: 'enter password',
                 labelText: 'Password',
               ),
-              style: TextStyle(fontSize: 20, color: textTheme.button!.color),
               validator: _validatePassword,
               onSaved: (value) => _password = value,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(32),
-            child: ElevatedButton(
+            child: FilledButton(
               onPressed: _submit,
               child: const Text('Login'),
             ),
